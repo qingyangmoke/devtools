@@ -6,8 +6,7 @@
 #ifndef KRAKEN_ANDROID_PLAYGROUND_JSC_DEBUGGER_IMPL_H
 #define KRAKEN_ANDROID_PLAYGROUND_JSC_DEBUGGER_IMPL_H
 
-#include "foundation/logging.h"
-#include "kraken_foundation.h"
+#include "kraken/include/kraken_foundation.h"
 
 #include <JavaScriptCore/ScriptArguments.h>
 #include <JavaScriptCore/ConsoleClient.h>

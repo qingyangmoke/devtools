@@ -10,7 +10,6 @@
 #include <rapidjson/writer.h>
 
 #include "inspector/service/rpc/protocol.h"
-#include "foundation/logging.h"
 
 namespace kraken::debugger {
 

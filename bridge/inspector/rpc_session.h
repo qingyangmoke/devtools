@@ -8,9 +8,6 @@
 
 #include <JavaScriptCore/JSGlobalObject.h>
 
-#include "foundation/logging.h"
-#include "foundation/ui_task_queue.h"
-#include "foundation/inspector_task_queue.h"
 #include "inspector/service/rpc/object_serializer.h"
 #include "inspector/service/rpc/protocol.h"
 #include "protocol_handler.h"

@@ -5,7 +5,6 @@
 
 #include "jsc_heap_profiler_agent_impl.h"
 #include "inspector/impl/jsc_log_agent_impl.h"
-#include "foundation/logging.h"
 
 namespace kraken::debugger {
 JSCHeapProfilerAgentImpl::JSCHeapProfilerAgentImpl(kraken::debugger::InspectorSession *session,

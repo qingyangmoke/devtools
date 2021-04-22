@@ -11,8 +11,6 @@
 #include "inspector/protocol/frontend_channel.h"
 #include "inspector/protocol/uber_dispatcher.h"
 #include "inspector/protocol_handler.h"
-#include "foundation/logging.h"
-#include "foundation/task_queue.h"
 
 #include <JavaScriptCore/InjectedScriptManager.h>
 #include <JavaScriptCore/InspectorEnvironment.h>

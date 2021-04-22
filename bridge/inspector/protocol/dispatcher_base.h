@@ -10,7 +10,6 @@
 #include "inspector/protocol/error_support.h"
 #include "inspector/protocol/frontend_channel.h"
 #include "inspector/service/rpc/protocol.h"
-#include "foundation/logging.h"
 
 #include <memory>
 #include <string>

@@ -6,7 +6,6 @@
 #ifndef KRAKEN_DEBUGGER_FRONTDOOR_H
 #define KRAKEN_DEBUGGER_FRONTDOOR_H
 
-#include "foundation/logging.h"
 #include "inspector/inspector_session.h"
 #include "inspector/protocol_handler.h"
 #include "inspector/rpc_session.h"

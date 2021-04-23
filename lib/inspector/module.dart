@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../kraken_devtools.dart';
 import 'ui_inspector.dart';
 import 'isolate_server.dart';
 export 'modules/dom.dart';
@@ -37,14 +38,14 @@ abstract class _InspectorModule {
 
 // Inspector modules working on flutter.ui thread.
 abstract class UIInspectorModule extends _InspectorModule {
-  final UIInspector inspector;
-  UIInspectorModule(this.inspector);
+  final KrakenDevTools devTool;
+  UIInspectorModule(this.devTool);
 
   void sendToFrontend(int id, JSONEncodable result) {
-    inspector.viewController.isolateServerPort.send(InspectorMethodResult(id, result?.toJson()));
+    devTool.isolateServerPort.send(InspectorMethodResult(id, result?.toJson()));
   }
   void sendEventToFrontend(InspectorEvent event) {
-    inspector.viewController.isolateServerPort.send(event);
+    devTool.isolateServerPort.send(event);
   }
   void receiveFromFrontend(int id, String method, Map<String, dynamic> params);
 }

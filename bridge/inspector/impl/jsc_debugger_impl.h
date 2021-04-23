@@ -6,7 +6,7 @@
 #ifndef KRAKEN_ANDROID_PLAYGROUND_JSC_DEBUGGER_IMPL_H
 #define KRAKEN_ANDROID_PLAYGROUND_JSC_DEBUGGER_IMPL_H
 
-#include "kraken/include/kraken_foundation.h"
+#include "kraken_foundation.h"
 
 #include <JavaScriptCore/ScriptArguments.h>
 #include <JavaScriptCore/ConsoleClient.h>
@@ -24,7 +24,7 @@ private:
   KRAKEN_DISALLOW_COPY_AND_ASSIGN(JSCDebuggerImpl);
 
 public:
-  explicit JSCDebuggerImpl(JSC::JSGlobalObject *);
+  explicit JSCDebuggerImpl(int32_t contextId, JSC::JSGlobalObject *);
   virtual ~JSCDebuggerImpl() {}
 
   JSC::JSGlobalObject *globalObject() const {
@@ -51,6 +51,7 @@ private:
   void reportException(JSC::ExecState *exec, JSC::Exception *exception) const override;
 
   JSC::JSGlobalObject *m_globalObject;
+  int32_t m_contextId;
 };
 } // namespace kraken
 

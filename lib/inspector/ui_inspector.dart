@@ -7,6 +7,7 @@ import 'dart:io';
 
 import 'package:kraken/kraken.dart';
 import 'package:kraken/module.dart';
+import 'package:kraken_devtools/kraken_devtools.dart';
 import 'module.dart';
 
 const String INSPECTOR_URL = 'devtools://devtools/bundled/inspector.html';
@@ -61,19 +62,14 @@ class InspectorReload {
 }
 
 class UIInspector {
-  /// Design preInspector for reload page,
-  /// do not use it in any other place.
-  /// More detail see [InspectPageModule.handleReloadPage].
-  static UIInspector prevInspector;
-
-  KrakenViewController viewController;
+  KrakenDevTools devTool;
   final Map<String, UIInspectorModule> moduleRegistrar = {};
 
-  UIInspector(this.viewController) {
-    registerModule(InspectDOMModule(this));
-    registerModule(InspectOverlayModule(this));
-    registerModule(InspectPageModule(this));
-    registerModule(InspectCSSModule(this));
+  UIInspector(this.devTool) {
+    registerModule(InspectDOMModule(devTool));
+    registerModule(InspectOverlayModule(devTool));
+    registerModule(InspectPageModule(devTool));
+    registerModule(InspectCSSModule(devTool));
   }
 
   void registerModule(UIInspectorModule module) {
@@ -97,12 +93,12 @@ class UIInspector {
   }
 
   void onDOMTreeChanged() {
-    viewController.isolateServerPort.send(DOMUpdatedEvent());
+    devTool.isolateServerPort.send(DOMUpdatedEvent());
   }
 
   void dispose() {
     moduleRegistrar.clear();
-    viewController = null;
+    devTool = null;
   }
 
   static Future<String> getConnectedLocalNetworkAddress() async {

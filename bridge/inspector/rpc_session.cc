@@ -4,6 +4,7 @@
  */
 
 #include "rpc_session.h"
+#include "kraken_bridge.h"
 
 namespace kraken::debugger {
 
@@ -31,7 +32,7 @@ void RPCSession::_on_message(const std::string &message) {
     if (m_debug_session->isDebuggerPaused()) {
       if (domain == "Runtime" || (domain == "Debugger" && subMethod == "evaluateOnCallFrame")) {
         auto *ctx = new SessionContext{this, message};
-        foundation::UITaskQueue::instance(_contextId)->registerTask([](void *ptr) {
+        registerUITask(_contextId, [](void *ptr) {
           auto *ctx = reinterpret_cast<SessionContext *>(ptr);
           rapidjson::Document doc;
           doc.Parse(ctx->message.c_str());
@@ -63,7 +64,7 @@ void RPCSession::_on_message(const std::string &message) {
 void DartRPC::send(int32_t contextId, const std::string &msg) {
   if (std::this_thread::get_id() == getUIThreadId()) {
     auto ctx = new RPCContext{contextId, msg};
-    kraken::getDartMethod()->postTaskToInspectorThread(contextId, reinterpret_cast<void*>(ctx), [](void *ptr) {
+    kraken::getUIDartMethod()->postTaskToInspectorThread(contextId, reinterpret_cast<void*>(ctx), [](void *ptr) {
       auto ctx = reinterpret_cast<RPCContext *>(ptr);
       getInspectorDartMethod()->inspectorMessage(ctx->contextId, ctx->message.c_str());
       delete ctx;

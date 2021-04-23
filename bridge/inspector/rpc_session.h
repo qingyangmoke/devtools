@@ -11,6 +11,7 @@
 #include "inspector/service/rpc/object_serializer.h"
 #include "inspector/service/rpc/protocol.h"
 #include "protocol_handler.h"
+#include "dart_methods.h"
 #include "inspector/inspector_session.h"
 #include <functional>
 

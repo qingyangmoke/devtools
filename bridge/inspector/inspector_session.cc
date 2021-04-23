@@ -28,7 +28,7 @@ InspectorSession::InspectorSession(RPCSession *rpcSession, JSGlobalContextRef ct
   : m_rpcSession(rpcSession), m_dispatcher(this), m_protocol_handler(handler),
     m_executionStopwatch(Stopwatch::create()) {
   m_executionStopwatch->start();
-  m_debugger = std::make_unique<debugger::JSCDebuggerImpl>(globalObject);
+  m_debugger = std::make_unique<debugger::JSCDebuggerImpl>(rpcSession->sessionId(), globalObject);
   m_injectedScriptManager =
     std::make_unique<Inspector::InjectedScriptManager>(*this, Inspector::InjectedScriptHost::create());
   AgentContext context = {this->m_debugger.get(), this, this->m_injectedScriptManager.get(), this};

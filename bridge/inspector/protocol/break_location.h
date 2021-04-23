@@ -8,7 +8,7 @@
 
 #include "inspector/protocol/error_support.h"
 #include "inspector/protocol/maybe.h"
-#include "include/kraken_foundation.h"
+#include "kraken_foundation.h"
 #include "rapidjson/document.h"
 #include <memory>
 #include <string>

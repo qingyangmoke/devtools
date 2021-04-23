@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:kraken_devtools/kraken_devtools.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:kraken/dom.dart';
@@ -185,9 +186,9 @@ enum ResourceType {
 
 class InspectPageModule extends UIInspectorModule {
 
-  ElementManager get elementManager => inspector.viewController.elementManager;
+  ElementManager get elementManager => devTool.controller.view.elementManager;
 
-  InspectPageModule(UIInspector inspector): super(inspector);
+  InspectPageModule(KrakenDevTools devTool): super(devTool);
 
   @override
   String get name => 'Page';
@@ -209,7 +210,7 @@ class InspectPageModule extends UIInspectorModule {
         break;
       case 'getResourceContent':
         sendToFrontend(id, JSONEncodableMap({
-          'content': inspector.viewController.elementManager.controller.bundle.content,
+          'content': devTool.controller.view.elementManager.controller.bundle.content,
           'base64Encoded': false
         }));
         break;
@@ -224,7 +225,6 @@ class InspectPageModule extends UIInspectorModule {
 
   void handleReloadPage() async {
     try {
-      UIInspector.prevInspector = elementManager.controller.view.uiInspector;
       await elementManager.controller.reload();
     } catch (e, stack) {
       print('Dart Error: $e\n$stack');

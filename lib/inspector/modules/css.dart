@@ -1,3 +1,4 @@
+import 'package:kraken_devtools/kraken_devtools.dart';
 import 'package:flutter/rendering.dart';
 import 'package:kraken/css.dart';
 import 'package:kraken/dom.dart';
@@ -9,8 +10,8 @@ const int INLINED_STYLESHEET_ID = 1;
 const String ZERO_PX = '0px';
 
 class InspectCSSModule extends UIInspectorModule {
-  ElementManager get elementManager => inspector.viewController.elementManager;
-  InspectCSSModule(UIInspector inspector): super(inspector);
+  ElementManager get elementManager => devTool.controller.view.elementManager;
+  InspectCSSModule(KrakenDevTools devTool): super(devTool);
 
   @override
   String get name => 'CSS';

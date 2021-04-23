@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 
+import 'package:kraken_devtools/kraken_devtools.dart';
 import 'package:kraken/dom.dart';
 import 'package:kraken/rendering.dart';
 import 'package:flutter/rendering.dart';
@@ -13,8 +14,8 @@ class InspectDOMModule extends UIInspectorModule {
   @override
   String get name => 'DOM';
 
-  ElementManager get elementManager => inspector.viewController.elementManager;
-  InspectDOMModule(UIInspector inspector): super(inspector);
+  ElementManager get elementManager => devTool.controller.view.elementManager;
+  InspectDOMModule(KrakenDevTools devTool): super(devTool);
 
   @override
   void receiveFromFrontend(int id, String method, Map<String, dynamic> params) {

@@ -6,11 +6,12 @@
 #include "jsc_debugger_impl.h"
 #include <JavaScriptCore/JSCJSValueInlines.h>
 #include <JavaScriptCore/EventLoop.h>
+#include "kraken_bridge.h"
 
 namespace kraken::debugger {
 using namespace JSC;
-JSCDebuggerImpl::JSCDebuggerImpl(JSGlobalObject *globalObject)
-  : Inspector::ScriptDebugServer(globalObject->globalExec()->vm()), m_globalObject(globalObject) {}
+JSCDebuggerImpl::JSCDebuggerImpl(int32_t contextId, JSGlobalObject *globalObject)
+  : Inspector::ScriptDebugServer(globalObject->globalExec()->vm()), m_globalObject(globalObject), m_contextId(contextId) {}
 
 void JSCDebuggerImpl::recompileAllJSFunctions() {
   JSC::JSLockHolder holder(vm());
@@ -34,7 +35,7 @@ void JSCDebuggerImpl::runEventLoopWhilePaused() {
   Inspector::EventLoop loop;
   while (!m_doneProcessingDebuggerEvents && !loop.ended()) {
     loop.cycle();
-    foundation::UITaskQueue::instance(0)->flushTask();
+    flushUITask(m_contextId);
   }
 }
 

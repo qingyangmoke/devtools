@@ -1,3 +1,80 @@
+/*
+ * Copyright (C) 2021-present Alibaba Inc. All rights reserved.
+ * Author: Kraken Team.
+ */
 
-class KrakenDevtools {
+import 'dart:isolate';
+import 'dart:ffi';
+
+import 'inspector/ui_inspector.dart';
+import 'inspector/isolate_server.dart';
+import 'package:kraken/kraken.dart';
+import 'package:kraken/bridge.dart';
+
+void spawnIsolateInspectorServer(KrakenDevTools devTool, KrakenController controller, { int port = INSPECTOR_DEFAULT_PORT, String address }) {
+  ReceivePort serverIsolateReceivePort = ReceivePort();
+
+  serverIsolateReceivePort.listen((data) {
+    if (data is SendPort) {
+      devTool._isolateServerPort = data;
+      String bundleURL = controller.bundleURL ?? controller.bundlePath ?? '<EmbedBundle>';
+      devTool._isolateServerPort.send(InspectorServerInit(controller.view.contextId, port, '0.0.0.0', bundleURL));
+    } else if (data is InspectorFrontEndMessage) {
+      devTool.uiInspector.messageRouter(data.id, data.module, data.method, data.params);
+    } else if (data is InspectorServerStart) {
+      devTool.uiInspector.onServerStart(port);
+    } else if (data is InspectorPostTaskMessage) {
+      dispatchUITask(controller.view.contextId, Pointer.fromAddress(data.context), Pointer.fromAddress(data.callback));
+    }
+  });
+
+  Isolate.spawn(serverIsolateEntryPoint, serverIsolateReceivePort.sendPort).then((Isolate isolate) {
+    devTool._isolateServerIsolate = isolate;
+  });
+}
+
+class KrakenDevTools extends KrakenDevToolsInterface {
+  /// Design prevDevTool for reload page,
+  /// do not use it in any other place.
+  /// More detail see [InspectPageModule.handleReloadPage].
+  static KrakenDevTools prevDevTools;
+
+  static Map<int, KrakenDevTools> _contextDevToolMap = Map();
+  static KrakenDevTools getDevToolOfContextId(int contextId) {
+    return _contextDevToolMap[contextId];
+  }
+
+  Isolate _isolateServerIsolate;
+  SendPort _isolateServerPort;
+  SendPort get isolateServerPort => _isolateServerPort;
+
+  /// Used for debugger inspector.
+  UIInspector _uiInspector;
+  UIInspector get uiInspector => _uiInspector;
+
+  KrakenController _controller;
+  KrakenController get controller => _controller;
+
+  @override
+  void dispose(KrakenController controller) {
+    _uiInspector?.dispose();
+    _controller = null;
+    _isolateServerPort = null;
+    _isolateServerIsolate.kill();
+  }
+
+  @override
+  void init(KrakenController controller) {
+    _controller = controller;
+    spawnIsolateInspectorServer(this, controller);
+    _uiInspector = UIInspector(this);
+    controller.view.elementManager.debugDOMTreeChanged = uiInspector.onDOMTreeChanged;
+  }
+
+  @override
+  void reload(KrakenController controller) {
+    _controller = controller;
+    controller.view.elementManager.debugDOMTreeChanged = _uiInspector.onDOMTreeChanged;
+    _isolateServerPort.send(InspectorReload(_controller.view.contextId));
+  }
 }

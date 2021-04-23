@@ -2,7 +2,7 @@ import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:ffi/ffi.dart';
-import 'package:kraken/launcher.dart';
+import 'package:kraken_devtools/kraken_devtools.dart';
 import 'platform.dart';
 import 'package:kraken_devtools/inspector/ui_inspector.dart';
 
@@ -10,9 +10,9 @@ typedef Native_PostTaskToInspectorThread = Void Function(Int32 contextId, Pointe
 typedef Dart_PostTaskToInspectorThread = void Function(int contextId, Pointer<Void> context, Pointer<Void> callback);
 
 void _postTaskToInspectorThread(int contextId, Pointer<Void> context, Pointer<Void> callback) {
-  KrakenController controller = KrakenController.getControllerOfJSContextId(contextId);
-  if (controller.view.uiInspector != null) {
-    controller.view.uiInspector.viewController.isolateServerPort.send(InspectorPostTaskMessage(context.address, callback.address));
+  KrakenDevTools devTool = KrakenDevTools.getDevToolOfContextId(contextId);
+  if (devTool != null) {
+    devTool.isolateServerPort.send(InspectorPostTaskMessage(context.address, callback.address));
   }
 }
 
@@ -26,7 +26,7 @@ typedef Native_RegisterDartMethods = Void Function(Pointer<Uint64> methodBytes, 
 typedef Dart_RegisterDartMethods = void Function(Pointer<Uint64> methodBytes, int length);
 
 final Dart_RegisterDartMethods _registerDartMethods =
-    nativeDynamicLibrary.lookup<NativeFunction<Native_RegisterDartMethods>>('registerDartMethods').asFunction();
+    nativeDynamicLibrary.lookup<NativeFunction<Native_RegisterDartMethods>>('registerUIDartMethods').asFunction();
 
 void registerDartMethodsToCpp() {
   Pointer<Uint64> bytes = allocate<Uint64>(count: _dartNativeMethods.length);

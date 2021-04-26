@@ -9,6 +9,7 @@ import 'package:kraken/kraken.dart';
 import 'package:ffi/ffi.dart';
 import 'ui_inspector.dart';
 import 'module.dart';
+import '../bridge/platform.dart';
 
 const String CONTENT_TYPE = 'Content-Type';
 const String CONTENT_LENGTH = 'Content-Length';

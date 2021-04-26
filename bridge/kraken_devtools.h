@@ -27,7 +27,15 @@ private:
 }
 
 KRAKEN_EXPORT_C
-void attachDebugger(int32_t contextId);
+void attachInspector(int32_t contextId);
+KRAKEN_EXPORT_C
+void registerInspectorDartMethods(uint64_t *methodBytes, int32_t length);
+
+KRAKEN_EXPORT_C
+void registerUIDartMethods(uint64_t *methodBytes, int32_t length);
+
+KRAKEN_EXPORT_C
+void dispatchInspectorTask(int32_t contextId, void *context, void *callback);
 
 struct InspectorDartMethodPointer {
   InspectorMessage inspectorMessage{nullptr};
@@ -36,7 +44,5 @@ struct InspectorDartMethodPointer {
 };
 
 std::shared_ptr<InspectorDartMethodPointer> getInspectorDartMethod();
-
-void registerInspectorDartMethods(uint64_t *methodBytes, int32_t length);
 
 #endif //KRAKEN_DEVTOOLS_KRAKEN_DEVTOOLS_H

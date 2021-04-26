@@ -33,4 +33,9 @@ void registerInspectorDartMethods(uint64_t *methodBytes, int32_t length) {
   inspectorMethodPointer->postTaskToUiThread = reinterpret_cast<PostTaskToUIThread>(methodBytes[i++]);
 }
 
+void registerUIDartMethods(uint64_t *methodBytes, int32_t length) {
+  size_t i = 0;
+  uiMethodPointer->postTaskToInspectorThread = reinterpret_cast<PostTaskToInspectorThread>(methodBytes[i++]);
+}
+
 } // namespace kraken

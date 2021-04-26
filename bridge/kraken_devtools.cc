@@ -6,10 +6,11 @@
 #include "kraken_devtools.h"
 #include "kraken_bridge.h"
 #include "inspector/frontdoor.h"
+#include "dart_methods.h"
 #include "inspector/protocol_handler.h"
 #include <memory>
 
-void attachDebugger(int32_t contextId) {
+void attachInspector(int32_t contextId) {
   JSGlobalContextRef ctx = getGlobalContextRef(contextId);
   std::shared_ptr<kraken::debugger::BridgeProtocolHandler> handler = std::make_shared<kraken::debugger::BridgeProtocolHandler>();
   JSC::ExecState* exec = toJS(ctx);
@@ -22,17 +23,17 @@ void attachDebugger(int32_t contextId) {
   }, frontDoor);
 }
 
-std::shared_ptr<InspectorDartMethodPointer> inspectorMethodPointer = std::make_shared<InspectorDartMethodPointer>();
-std::shared_ptr<InspectorDartMethodPointer> getInspectorDartMethod() {
-  assert_m(std::this_thread::get_id() != getUIThreadId(), "inspector dart methods should be called on the inspector thread.");
-  return inspectorMethodPointer;
+void dispatchInspectorTask(int32_t contextId, void *context, void *callback) {
+  assert(std::this_thread::get_id() != getUIThreadId());
+  reinterpret_cast<void(*)(void*)>(callback)(context);
 }
 
 void registerInspectorDartMethods(uint64_t *methodBytes, int32_t length) {
-  size_t i = 0;
-  inspectorMethodPointer->inspectorMessage = reinterpret_cast<InspectorMessage>(methodBytes[i++]);
-  inspectorMethodPointer->registerInspectorMessageCallback = reinterpret_cast<RegisterInspectorMessageCallback>(methodBytes[i++]);
-  inspectorMethodPointer->postTaskToUiThread = reinterpret_cast<PostTaskToUIThread>(methodBytes[i++]);
+  kraken::registerInspectorDartMethods(methodBytes, length);
+}
+
+void registerUIDartMethods(uint64_t *methodBytes, int32_t length) {
+  kraken::registerUIDartMethods(methodBytes, length);
 }
 
 namespace kraken::debugger {

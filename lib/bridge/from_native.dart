@@ -28,7 +28,7 @@ typedef Dart_RegisterDartMethods = void Function(Pointer<Uint64> methodBytes, in
 final Dart_RegisterDartMethods _registerDartMethods =
     nativeDynamicLibrary.lookup<NativeFunction<Native_RegisterDartMethods>>('registerUIDartMethods').asFunction();
 
-void registerDartMethodsToCpp() {
+void registerUIDartMethodsToCpp() {
   Pointer<Uint64> bytes = allocate<Uint64>(count: _dartNativeMethods.length);
   Uint64List nativeMethodList = bytes.asTypedList(_dartNativeMethods.length);
   nativeMethodList.setAll(0, _dartNativeMethods);

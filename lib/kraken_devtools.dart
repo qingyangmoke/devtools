@@ -6,6 +6,8 @@
 import 'dart:isolate';
 import 'dart:ffi';
 
+import 'bridge/from_native.dart';
+
 import 'inspector/ui_inspector.dart';
 import 'inspector/isolate_server.dart';
 import 'package:kraken/kraken.dart';
@@ -61,11 +63,14 @@ class KrakenDevTools extends KrakenDevToolsInterface {
     _controller = null;
     _isolateServerPort = null;
     _isolateServerIsolate.kill();
+    _contextDevToolMap.remove(controller.view.contextId);
   }
 
   @override
   void init(KrakenController controller) {
+    _contextDevToolMap[controller.view.contextId] = this;
     _controller = controller;
+    registerUIDartMethodsToCpp();
     spawnIsolateInspectorServer(this, controller);
     _uiInspector = UIInspector(this);
     controller.view.elementManager.debugDOMTreeChanged = uiInspector.onDOMTreeChanged;

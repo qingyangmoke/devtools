@@ -37,12 +37,4 @@ void registerUIDartMethods(uint64_t *methodBytes, int32_t length);
 KRAKEN_EXPORT_C
 void dispatchInspectorTask(int32_t contextId, void *context, void *callback);
 
-struct InspectorDartMethodPointer {
-  InspectorMessage inspectorMessage{nullptr};
-  RegisterInspectorMessageCallback registerInspectorMessageCallback{nullptr};
-  PostTaskToUIThread postTaskToUiThread{nullptr};
-};
-
-std::shared_ptr<InspectorDartMethodPointer> getInspectorDartMethod();
-
 #endif //KRAKEN_DEVTOOLS_KRAKEN_DEVTOOLS_H

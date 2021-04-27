@@ -15,7 +15,7 @@ std::shared_ptr<UIDartMethodPointer> getUIDartMethod() {
   return uiMethodPointer;
 }
 
-void registerDartMethods(uint64_t *methodBytes, int32_t length) {
+void registerUIDartMethods(uint64_t *methodBytes, int32_t length) {
   size_t i = 0;
   uiMethodPointer->postTaskToInspectorThread = reinterpret_cast<PostTaskToInspectorThread>(methodBytes[i++]);
   assert_m(i == length, "Dart native methods count is not equal with C++ side method registrations.");
@@ -31,11 +31,6 @@ void registerInspectorDartMethods(uint64_t *methodBytes, int32_t length) {
   inspectorMethodPointer->inspectorMessage = reinterpret_cast<InspectorMessage>(methodBytes[i++]);
   inspectorMethodPointer->registerInspectorMessageCallback = reinterpret_cast<RegisterInspectorMessageCallback>(methodBytes[i++]);
   inspectorMethodPointer->postTaskToUiThread = reinterpret_cast<PostTaskToUIThread>(methodBytes[i++]);
-}
-
-void registerUIDartMethods(uint64_t *methodBytes, int32_t length) {
-  size_t i = 0;
-  uiMethodPointer->postTaskToInspectorThread = reinterpret_cast<PostTaskToInspectorThread>(methodBytes[i++]);
 }
 
 } // namespace kraken

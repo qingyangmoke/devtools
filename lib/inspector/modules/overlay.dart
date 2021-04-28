@@ -12,7 +12,7 @@ class InspectOverlayModule extends UIInspectorModule {
   String get name => 'Overlay';
 
   ElementManager get elementManager => devTool.controller.view.elementManager;
-  InspectOverlayModule(KrakenDevTools devTool): super(devTool);
+  InspectOverlayModule(ChromeDevToolsService devTool): super(devTool);
 
   @override
   void receiveFromFrontend(int id, String method, Map<String, dynamic> params) {

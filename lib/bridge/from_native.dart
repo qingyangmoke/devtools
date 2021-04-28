@@ -10,7 +10,7 @@ typedef Native_PostTaskToInspectorThread = Void Function(Int32 contextId, Pointe
 typedef Dart_PostTaskToInspectorThread = void Function(int contextId, Pointer<Void> context, Pointer<Void> callback);
 
 void _postTaskToInspectorThread(int contextId, Pointer<Void> context, Pointer<Void> callback) {
-  KrakenDevTools devTool = KrakenDevTools.getDevToolOfContextId(contextId);
+  ChromeDevToolsService devTool = ChromeDevToolsService.getDevToolOfContextId(contextId);
   if (devTool != null) {
     devTool.isolateServerPort.send(InspectorPostTaskMessage(context.address, callback.address));
   }

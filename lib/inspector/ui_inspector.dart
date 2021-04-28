@@ -62,7 +62,7 @@ class InspectorReload {
 }
 
 class UIInspector {
-  KrakenDevTools devTool;
+  ChromeDevToolsService devTool;
   final Map<String, UIInspectorModule> moduleRegistrar = {};
 
   UIInspector(this.devTool) {

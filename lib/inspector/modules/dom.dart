@@ -15,7 +15,7 @@ class InspectDOMModule extends UIInspectorModule {
   String get name => 'DOM';
 
   ElementManager get elementManager => devTool.controller.view.elementManager;
-  InspectDOMModule(KrakenDevTools devTool): super(devTool);
+  InspectDOMModule(ChromeDevToolsService devTool): super(devTool);
 
   @override
   void receiveFromFrontend(int id, String method, Map<String, dynamic> params) {

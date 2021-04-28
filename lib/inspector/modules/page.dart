@@ -188,7 +188,7 @@ class InspectPageModule extends UIInspectorModule {
 
   ElementManager get elementManager => devTool.controller.view.elementManager;
 
-  InspectPageModule(KrakenDevTools devTool): super(devTool);
+  InspectPageModule(ChromeDevToolsService devTool): super(devTool);
 
   @override
   String get name => 'Page';

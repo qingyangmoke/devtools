@@ -11,7 +11,7 @@ const String ZERO_PX = '0px';
 
 class InspectCSSModule extends UIInspectorModule {
   ElementManager get elementManager => devTool.controller.view.elementManager;
-  InspectCSSModule(KrakenDevTools devTool): super(devTool);
+  InspectCSSModule(ChromeDevToolsService devTool): super(devTool);
 
   @override
   String get name => 'CSS';

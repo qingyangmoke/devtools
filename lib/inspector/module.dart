@@ -38,7 +38,7 @@ abstract class _InspectorModule {
 
 // Inspector modules working on flutter.ui thread.
 abstract class UIInspectorModule extends _InspectorModule {
-  final KrakenDevTools devTool;
+  final ChromeDevToolsService devTool;
   UIInspectorModule(this.devTool);
 
   void sendToFrontend(int id, JSONEncodable result) {

@@ -13,7 +13,7 @@ import 'inspector/isolate_server.dart';
 import 'package:kraken/kraken.dart';
 import 'package:kraken/bridge.dart';
 
-void spawnIsolateInspectorServer(KrakenDevTools devTool, KrakenController controller, { int port = INSPECTOR_DEFAULT_PORT, String address }) {
+void spawnIsolateInspectorServer(ChromeDevToolsService devTool, KrakenController controller, { int port = INSPECTOR_DEFAULT_PORT, String address }) {
   ReceivePort serverIsolateReceivePort = ReceivePort();
 
   serverIsolateReceivePort.listen((data) {
@@ -35,14 +35,14 @@ void spawnIsolateInspectorServer(KrakenDevTools devTool, KrakenController contro
   });
 }
 
-class KrakenDevTools extends KrakenDevToolsInterface {
+class ChromeDevToolsService extends DevToolsService {
   /// Design prevDevTool for reload page,
   /// do not use it in any other place.
   /// More detail see [InspectPageModule.handleReloadPage].
-  static KrakenDevTools prevDevTools;
+  static ChromeDevToolsService prevDevTools;
 
-  static Map<int, KrakenDevTools> _contextDevToolMap = Map();
-  static KrakenDevTools getDevToolOfContextId(int contextId) {
+  static Map<int, ChromeDevToolsService> _contextDevToolMap = Map();
+  static ChromeDevToolsService getDevToolOfContextId(int contextId) {
     return _contextDevToolMap[contextId];
   }
 

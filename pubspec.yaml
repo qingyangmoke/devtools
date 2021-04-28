@@ -11,7 +11,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  jsc: ^0.1.0
+  jsc: ^0.1.1
+  ffi: ^0.1.3
+  kraken:
+    path: ../kraken/kraken
 
 dev_dependencies:
   flutter_test:

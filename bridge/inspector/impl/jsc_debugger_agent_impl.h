@@ -3,6 +3,9 @@
  * Author: Kraken Team.
  */
 
+#ifndef KRAKEN_DEBUGGER_JSC_DEBUGGER_AGENT_IMPL_H
+#define KRAKEN_DEBUGGER_JSC_DEBUGGER_AGENT_IMPL_H
+
 #include <JavaScriptCore/AsyncStackTrace.h>
 #include <JavaScriptCore/InjectedScript.h>
 #include <JavaScriptCore/InjectedScriptManager.h>
@@ -247,3 +250,5 @@ private:
   int m_debugger_id = {0};
 };
 } // namespace kraken
+
+#endif

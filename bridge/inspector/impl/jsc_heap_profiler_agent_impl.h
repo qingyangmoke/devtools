@@ -3,6 +3,9 @@
  * Author: Kraken Team.
  */
 
+#ifndef KRAKEN_DEBUGGER_JSC_HEAP_PROFILER_AGENT_IMPL_H
+#define KRAKEN_DEBUGGER_JSC_HEAP_PROFILER_AGENT_IMPL_H
+
 #include "inspector/inspector_session.h"
 #include "inspector/protocol/heap_profiler_backend.h"
 
@@ -27,3 +30,5 @@ private:
   Inspector::InspectorEnvironment *m_environment;
 };
 } // namespace kraken
+
+#endif

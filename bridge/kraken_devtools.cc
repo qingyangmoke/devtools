@@ -7,7 +7,6 @@
 #include "kraken_bridge.h"
 #include "inspector/frontdoor.h"
 #include "dart_methods.h"
-#include "inspector/protocol_handler.h"
 #include <memory>
 
 void attachInspector(int32_t contextId) {
@@ -21,6 +20,8 @@ void attachInspector(int32_t contextId) {
   registerContextDisposedCallbacks(contextId, [](void *ptr) {
     delete reinterpret_cast<kraken::debugger::FrontDoor *>(ptr);
   }, frontDoor);
+
+  setConsoleMessageHandler(kraken::debugger::FrontDoor::handleConsoleMessage);
 }
 
 void dispatchInspectorTask(int32_t contextId, void *context, void *callback) {

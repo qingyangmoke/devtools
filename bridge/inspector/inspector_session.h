@@ -7,7 +7,14 @@
 #define KRAKEN_DEBUGGER_INSPECTOR_SESSION_IMPL_H
 
 #include "inspector/rpc_session.h"
+#include "inspector/impl/jsc_console_client_impl.h"
 #include "inspector/impl/jsc_debugger_impl.h"
+#include "inspector/impl/jsc_debugger_agent_impl.h"
+#include "inspector/impl/jsc_heap_profiler_agent_impl.h"
+#include "inspector/impl/jsc_runtime_agent_impl.h"
+#include "inspector/impl/jsc_log_agent_impl.h"
+#include "inspector/impl/jsc_page_agent_impl.h"
+#include "inspector/impl/jsc_runtime_agent_impl.h"
 #include "inspector/protocol/frontend_channel.h"
 #include "inspector/protocol/uber_dispatcher.h"
 #include "inspector/protocol_handler.h"
@@ -84,11 +91,9 @@
 #include <wtf/Assertions.h>
 
 namespace kraken::debugger {
-class JSCDebuggerAgentImpl;
-class JSCRuntimeAgentImpl;
-class JSCPageAgentImpl;
-class JSCLogAgentImpl;
-class JSCConsoleClientImpl;
+//class JSCPageAgentImpl;
+//class JSCLogAgentImpl;
+//class JSCConsoleClientImpl;
 class JSCHeapProfilerAgentImpl;
 class RPCSession;
 

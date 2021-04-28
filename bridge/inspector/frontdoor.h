@@ -21,6 +21,15 @@ public:
     m_rpc_session = std::make_shared<RPCSession>(contextId, ctx, globalObject, handler);
   }
 
+  static void handleConsoleMessage(void* ctx, const std::string &message, int logLevel) {
+    JSObjectRef globalObjectRef = JSContextGetGlobalObject(reinterpret_cast<JSGlobalContextRef>(ctx));
+    auto client = JSObjectGetPrivate(globalObjectRef);
+    if (client && client != ((void *)0x1)) {
+      auto client_impl = reinterpret_cast<kraken::debugger::JSCConsoleClientImpl *>(client);
+      client_impl->sendMessageToConsole(static_cast<JSC::MessageLevel>(logLevel), message);
+    }
+  }
+
 private:
   std::shared_ptr<RPCSession> m_rpc_session;
 };

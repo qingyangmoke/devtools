@@ -84,7 +84,7 @@ packages:
       name: device_info
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2+10"
+    version: "1.0.0"
   device_info_platform_interface:
     dependency: transitive
     description:
@@ -155,21 +155,21 @@ packages:
       name: jsc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1"
+    version: "0.1.4"
   kraken:
     dependency: transitive
     description:
-      path: "../../kraken/kraken"
-      relative: true
-    source: path
-    version: "0.7.1"
+      name: kraken
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.2+2"
   kraken_devtools:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   matcher:
     dependency: transitive
     description:

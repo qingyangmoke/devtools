@@ -1,20 +1,25 @@
 name: kraken_devtools
-description: A new flutter plugin project.
-version: 0.0.1
-author:
-homepage:
+description: A kraken plugin which open a service to support Chrome DevTools for debugging.
+version: 0.1.0
+author: Kraken Team
+homepage: https://openkraken.com
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
   flutter: ">=1.20.0"
 
+# dependency_overrides:
+#   jsc:
+#     path: ../jsc
+
 dependencies:
   flutter:
     sdk: flutter
-  jsc: ^0.1.1
+  jsc: ^0.1.4
   ffi: ^0.1.3
-  kraken:
-    path: ../kraken/kraken
+  kraken: ^0.7.2
+  meta: ^1.1.6
+  path: ^1.6.4
 
 dev_dependencies:
   flutter_test:
@@ -38,34 +43,3 @@ flutter:
         pluginClass: KrakenDevtoolsPlugin
       macos:
         pluginClass: KrakenDevtoolsPlugin
-
-  # To add assets to your plugin package, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-  #
-  # For details regarding assets in packages, see
-  # https://flutter.dev/assets-and-images/#from-packages
-  #
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # To add custom fonts to your plugin package, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts in packages, see
-  # https://flutter.dev/custom-fonts/#from-packages

@@ -16,7 +16,7 @@ void attachInspector(int32_t contextId) {
   JSC::VM& vm = exec->vm();
   JSC::JSLockHolder locker(vm);
   JSC::JSGlobalObject* globalObject = vm.vmEntryGlobalObject(exec);
-  kraken::debugger::FrontDoor *frontDoor = new kraken::debugger::FrontDoor(contextId, ctx, globalObject->globalObject(), handler);
+  auto *frontDoor = new kraken::debugger::FrontDoor(contextId, ctx, globalObject->globalObject(), handler);
   registerContextDisposedCallbacks(contextId, [](void *ptr) {
     delete reinterpret_cast<kraken::debugger::FrontDoor *>(ptr);
   }, frontDoor);

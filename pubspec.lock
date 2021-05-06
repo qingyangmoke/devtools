@@ -155,7 +155,7 @@ packages:
       name: kraken
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.2+2"
+    version: "0.7.2+3"
   matcher:
     dependency: transitive
     description:

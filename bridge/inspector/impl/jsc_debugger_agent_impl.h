@@ -232,7 +232,7 @@ private:
   ShouldDispatchResumed m_conditionToDispatchResumed{ShouldDispatchResumed::No};
   bool m_enablePauseWhenIdle{false};
   HashMap<AsyncCallIdentifier, RefPtr<Inspector::AsyncStackTrace>> m_pendingAsyncCalls;
-  std::optional<AsyncCallIdentifier> m_currentAsyncCallIdentifier{std::nullopt};
+  WTF::Optional<AsyncCallIdentifier> m_currentAsyncCallIdentifier{WTF::nullopt};
   bool m_enabled{false};
   bool m_javaScriptPauseScheduled{false};
   bool m_hasExceptionValue{false};

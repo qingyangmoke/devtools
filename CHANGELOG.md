@@ -1,3 +1,7 @@
-## 0.0.1
+## 0.1.1
 
-* TODO: Describe initial release.
+* fix: fix crash when `location.reload()` called.
+
+## 0.1.0
+
+* first edition of kraken_devtools.

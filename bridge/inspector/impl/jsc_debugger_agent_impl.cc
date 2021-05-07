@@ -1040,7 +1040,7 @@ void JSCDebuggerAgentImpl::didDispatchAsyncCall() {
   auto &asyncStackTrace = it->value;
   asyncStackTrace->didDispatchAsyncCall();
 
-  m_currentAsyncCallIdentifier = std::nullopt;
+  m_currentAsyncCallIdentifier = WTF::nullopt;
 
   if (!asyncStackTrace->isPending()) m_pendingAsyncCalls.remove(identifier);
 }
@@ -1232,7 +1232,7 @@ void JSCDebuggerAgentImpl::clearExceptionValue() {
 
 void JSCDebuggerAgentImpl::clearAsyncStackTraceData() {
   m_pendingAsyncCalls.clear();
-  m_currentAsyncCallIdentifier = std::nullopt;
+  m_currentAsyncCallIdentifier = WTF::nullopt;
 }
 
 void JSCDebuggerAgentImpl::registerIdleHandler() {

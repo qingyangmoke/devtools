@@ -26,6 +26,7 @@ void spawnIsolateInspectorServer(ChromeDevToolsService devTool, KrakenController
     } else if (data is InspectorServerStart) {
       devTool.uiInspector.onServerStart(port);
     } else if (data is InspectorPostTaskMessage) {
+      if (devTool.isReloading) return;
       dispatchUITask(controller.view.contextId, Pointer.fromAddress(data.context), Pointer.fromAddress(data.callback));
     }
   });
@@ -57,8 +58,11 @@ class ChromeDevToolsService extends DevToolsService {
   KrakenController _controller;
   KrakenController get controller => _controller;
 
+  bool get isReloading => _reloading;
+  bool _reloading = false;
+
   @override
-  void dispose(KrakenController controller) {
+  void dispose() {
     _uiInspector?.dispose();
     _controller = null;
     _isolateServerPort = null;
@@ -77,8 +81,13 @@ class ChromeDevToolsService extends DevToolsService {
   }
 
   @override
-  void reload(KrakenController controller) {
-    _controller = controller;
+  void willReload() {
+    _reloading = true;
+  }
+
+  @override
+  void didReload() {
+    _reloading = false;
     controller.view.elementManager.debugDOMTreeChanged = _uiInspector.onDOMTreeChanged;
     _isolateServerPort.send(InspectorReload(_controller.view.contextId));
   }

@@ -148,14 +148,14 @@ packages:
       name: jsc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.4"
+    version: "0.1.5"
   kraken:
     dependency: "direct main"
     description:
       name: kraken
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.2+3"
+    version: "0.7.2+4"
   matcher:
     dependency: transitive
     description:

@@ -213,9 +213,9 @@ static WTF::String generatePreview(const rapidjson::Value &value) {
     } else if (value["value"].IsBool()) {
       builder.append(value["value"].GetBool() ? "true" : "false");
     } else if (value["value"].IsDouble()) {
-      builder.append(String::number(value["value"].GetDouble()));
+      builder.append(value["value"].GetDouble());
     } else if (value["value"].IsInt()) {
-      builder.append(String::number(value["value"].GetInt()));
+      builder.append(value["value"].GetInt());
     } else {
       builder.append("\"unknown\"");
     }
@@ -277,12 +277,12 @@ DispatchResponse JSCRuntimeAgentImpl::getProperties(
       WTF::StringBuilder desc;
       if (entry.HasMember("key") && entry.HasMember("value")) {
         desc.append("{");
-        desc.append(generatePreview(entry["key"]));
+        desc.append(generatePreview(entry["key"]).characters8());
         desc.append(" => ");
-        desc.append(generatePreview(entry["value"]));
+        desc.append(generatePreview(entry["value"]).characters8());
         desc.append("}");
       } else if (entry.HasMember("value")) {
-        desc.append(generatePreview(entry["value"]));
+        desc.append(generatePreview(entry["value"]).characters8());
       }
 
       auto remoteObj = RemoteObject::create()

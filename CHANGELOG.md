@@ -1,3 +1,7 @@
+## 0.1.2+1
+
+* fix: flutter: NoSuchMethodError: The method 'send' was called on null https://github.com/openkraken/kraken/issues/237
+
 ## 0.1.2
 
 * feat: support android platform.

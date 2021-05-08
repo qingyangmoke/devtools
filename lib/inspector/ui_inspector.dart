@@ -93,7 +93,7 @@ class UIInspector {
   }
 
   void onDOMTreeChanged() {
-    devTool.isolateServerPort.send(DOMUpdatedEvent());
+    devTool.isolateServerPort?.send(DOMUpdatedEvent());
   }
 
   void dispose() {

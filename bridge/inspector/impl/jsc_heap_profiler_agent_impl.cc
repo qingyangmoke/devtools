@@ -47,7 +47,8 @@ void JSCHeapProfilerAgentImpl::didGarbageCollect(JSC::CollectionScope) {
 
   WTF::StringBuilder builder;
   builder.append("last gc elapsed ");
-  builder.append(WTF::String::number(endTime - m_gcStartTime));
+  auto &&string = WTF::String::number(endTime - m_gcStartTime);
+  builder.append(string.characters8(), string.length());
   builder.append("ms");
   auto now = std::chrono::high_resolution_clock::now();
   m_session->logAgent()->addMessageToConsole(

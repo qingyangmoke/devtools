@@ -155,21 +155,21 @@ packages:
       name: jsc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.4"
+    version: "0.1.5"
   kraken:
     dependency: transitive
     description:
       name: kraken
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.2+3"
+    version: "0.7.2+4"
   kraken_devtools:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.1.1"
+    version: "0.1.2+1"
   matcher:
     dependency: transitive
     description:

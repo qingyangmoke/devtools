@@ -50,7 +50,8 @@ void JSCConsoleClientImpl::messageWithTypeAndLevel(MessageType type, MessageLeve
 
   WTF::StringBuilder builder;
   for (size_t i = 0; i < exec->argumentCount(); i++) {
-    builder.append(exec->argument(i).getString(exec));
+    auto &&string = exec->argument(i).getString(exec);
+    builder.appendCharacters(string.characters8(), string.length());
     builder.append(" ");
   }
 
